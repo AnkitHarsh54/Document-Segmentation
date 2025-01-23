@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import fitz  # PyMuPDF for PDF processing
 
-weights_path = "https://github.com/AnkitHarsh54/Document-Segmentation/blob/main/yolov10x_best.pt"
+weights_path = "yolov10x_best.pt"
 # Load the YOLO model
 @st.cache_resource
 def load_model(weights_path):
