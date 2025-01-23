@@ -12,14 +12,16 @@ def pdf_to_images(pdf_file):
     for page_num in range(len(doc)):
         page = doc.load_page(page_num)
         pix = page.get_pixmap()
+        # Convert PyMuPDF pixmap to PIL Image
         img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
         images.append(img)
     return images
 
 # Inference function
 def run_inference(model, image):
+    # Ensure image is in correct format (RGB or BGR)
     results = model.predict(source=image, conf=0.5)
-    result_image = results[0].plot()
+    result_image = results[0].plot()  # Get the resulting image
     return result_image
 
 # Streamlit app
