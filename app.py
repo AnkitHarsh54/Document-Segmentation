@@ -1,15 +1,9 @@
 import streamlit as st
-from ultralytics import YOLO
-import cv2
-from PIL import Image
 import numpy as np
+from PIL import Image
+from ultralytics import YOLO
 import fitz  # PyMuPDF for PDF processing
-
-weights_path = "./Model_loader.py"
-# Load the YOLO model
-@st.cache_resource
-def load_model(weights_path):
-    return YOLO(weights_path)
+from model_loader import load_model  # Assuming the model loader code is saved in model_loader.py
 
 # Function to read PDF and convert it into images
 def pdf_to_images(pdf_file):
@@ -33,51 +27,54 @@ def main():
     st.title("Document Layout Analysis")
     st.write("Upload a PDF or an image to analyze its layout.")
 
-    # File uploader
-    uploaded_file = st.file_uploader("Choose a file (PDF or image)...", type=["pdf", "jpg", "jpeg", "png"])
-    if uploaded_file is not None:
-        file_type = uploaded_file.name.split(".")[-1].lower()
+    # Load the model
+    model = load_model()
 
-        if file_type == "pdf":
-            # Process PDF
-            st.write("Converting PDF to images...")
-            images = pdf_to_images(uploaded_file)
-            st.write(f"Extracted {len(images)} page(s).")
+    if model:
+        # File uploader
+        uploaded_file = st.file_uploader("Choose a file (PDF or image)...", type=["pdf", "jpg", "jpeg", "png"])
 
-            # Display and process each page
-            for page_num, img in enumerate(images, start=1):
-                st.write(f"Page {page_num}:")
-                st.image(img, caption=f"Page {page_num}", use_column_width=True)
+        if uploaded_file is not None:
+            file_type = uploaded_file.name.split(".")[-1].lower()
+
+            if file_type == "pdf":
+                # Process PDF
+                st.write("Converting PDF to images...")
+                images = pdf_to_images(uploaded_file)
+                st.write(f"Extracted {len(images)} page(s).")
+
+                # Display and process each page
+                for page_num, img in enumerate(images, start=1):
+                    st.write(f"Page {page_num}:")
+                    st.image(img, caption=f"Page {page_num}", use_column_width=True)
+
+                    # Convert PIL image to NumPy array for YOLO
+                    image_np = np.array(img)
+
+                    # Run inference
+                    st.write("Running inference...")
+                    result_image = run_inference(model, image_np)
+
+                    # Display results
+                    st.image(result_image, caption=f"Detection Results - Page {page_num}", use_column_width=True)
+            else:
+                # Process image
+                image = Image.open(uploaded_file)
+                st.image(image, caption="Uploaded Image", use_column_width=True)
 
                 # Convert PIL image to NumPy array for YOLO
-                image_np = np.array(img)
-
-                # Load the model
-                model = load_model(weights_path)
+                image_np = np.array(image)
 
                 # Run inference
                 st.write("Running inference...")
                 result_image = run_inference(model, image_np)
 
                 # Display results
-                st.image(result_image, caption=f"Detection Results - Page {page_num}", use_column_width=True)
+                st.image(result_image, caption="Detection Results", use_column_width=True)
         else:
-            # Process image
-            image = Image.open(uploaded_file)
-            st.image(image, caption="Uploaded Image", use_column_width=True)
-
-            # Convert PIL image to NumPy array for YOLO
-            image_np = np.array(image)
-
-            # Load the model
-            model = load_model("")
-
-            # Run inference
-            st.write("Running inference...")
-            result_image = run_inference(model, image_np)
-
-            # Display results
-            st.image(result_image, caption="Detection Results", use_column_width=True)
+            st.error("Please upload a file (PDF or image) to analyze.")
+    else:
+        st.error("Model could not be loaded.")
 
 if __name__ == "__main__":
     main()
