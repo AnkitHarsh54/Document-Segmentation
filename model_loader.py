@@ -11,7 +11,7 @@ FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 def download_model():
     """
     Download the YOLO model from Google Drive if it doesn't exist locally.
-    
+
     Returns:
         str: Path to the downloaded model file, or None if download fails
     """
@@ -29,15 +29,15 @@ def download_model():
             return None
     else:
         print(f"Model already exists at: {FILE_PATH}")
-    
+
     return FILE_PATH
 
 def load_model():
     """
     Load the YOLO model from the downloaded file.
-    
+
     Returns:
-        YOLO: Loaded YOLO model
+        YOLO: Loaded YOLO model or None if there was an error
     """
     model_path = download_model()
     if model_path:
@@ -48,4 +48,14 @@ def load_model():
         except Exception as e:
             print(f"Error loading model: {e}")
             return None
-    return None
+    else:
+        print("Model download failed, unable to load.")
+        return None
+
+# Example usage
+if __name__ == "__main__":
+    model = load_model()
+    if model:
+        print("Model is ready for inference.")
+    else:
+        print("Failed to load the model.")
