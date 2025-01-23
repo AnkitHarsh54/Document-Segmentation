@@ -1,10 +1,6 @@
 streamlit
 ultralytics
-torch
-torchvision
 opencv-python-headless
-Pillow
+pillow
+pymupdf
 numpy
-gdown
-pdf2image
-PyMuPDF
