@@ -5,4 +5,3 @@ pillow
 pymupdf
 numpy
 opencv-contrib-python-headless
-libGL.so.1
