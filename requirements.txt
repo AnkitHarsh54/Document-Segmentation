@@ -6,3 +6,5 @@ pymupdf
 numpy
 opencv-contrib-python-headless
 gdown
+torch
+torchvision
