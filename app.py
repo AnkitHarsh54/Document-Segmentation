@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import fitz  # PyMuPDF for PDF processing
 
-weights_path = "yolov10x_best.pt"
+weights_path = "./yolov10x_best.pt"
 # Load the YOLO model
 @st.cache_resource
 def load_model(weights_path):
