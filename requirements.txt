@@ -1,6 +1,7 @@
 streamlit
-ultralytics
+ultralytics==8.0.18
 opencv-python-headless
 pillow
 pymupdf
 numpy
+opencv-contrib-python-headless
