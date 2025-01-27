@@ -42,7 +42,7 @@ def load_model():
     model_path = download_model()
     if model_path:
         try:
-            model = YOLO(model_path)
+            model = YOLO(model_path, weights_only=True)
             print("Model loaded successfully.")
             return model
         except Exception as e:
