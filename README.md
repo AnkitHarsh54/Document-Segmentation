@@ -1,17 +1,22 @@
-# Document-Segmentation
-# YOLOv10 Document Segmentation Web-app
+# Document Segmentation with YOLOv10x
 
-## Overview
-A streamlit app for Document segmentation into different sections. 
+## 📝 Project Description
+This is a powerful text segmentation application built using YOLOv10x, Streamlit, and advanced computer vision techniques. The application allows users to upload images or PDF documents and perform object detection using state-of-the-art machine learning models.
 
-This app uses the YOLOv10x model for document segmentation to annotate various sections of a document such as text-fileds, formulae, pictures, list-items,etc.
-The model uses pretrained weights which may be dowloaded using this [colab notebook](Doc_analysis.ipynb)
+## ✨ Features
+- Support for image uploads (JPG, JPEG, PNG)
+- PDF document processing
+- Real-time object detection using YOLOv10x
+- Interactive Streamlit web interface
+- Automatic model downloading and loading
 
-[Link](https://yolodocsegmentation-es8sgqcljerv9ei2wgukq9.streamlit.app/) for deployed web-application using streamlit
+## 🛠 Prerequisites
+- Python 3.8+
+- GPU recommended for optimal performance
 
-## Website Interface and Results
-<img src = "thumbnails/ui.png">
+## 🚀 Installation
 
-### Annotations on document
-<img src = "thumbnails/annotated_image_page_2.jpg">
-<img src = "thumbnails/annotated_image_page_10.jpg">
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/text-segmentation-app.git
+cd text-segmentation-app
