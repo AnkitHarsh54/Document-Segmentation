@@ -1,6 +1,9 @@
 import os
 import gdown
 from ultralytics import YOLO
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, message=".*torch.classes.*")
+
 
 # Define the path where you want the model to be saved relative to your project directory
 MODEL_DIR = 'models'  # Define the folder to store the model
