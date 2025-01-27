@@ -5,8 +5,9 @@ from ultralytics import YOLO
 # Define the path where you want the model to be saved relative to your project directory
 MODEL_DIR = 'models'  # Define the folder to store the model
 FILE_PATH = os.path.join(MODEL_DIR, 'yolov10x_best.pt')  # Modify to store inside 'models' folder
-FILE_ID = "15YJAUuHYJQlMm0_rjlC-e_VJPmAvjeiE"  # File ID from the shared link on Google Drive
-FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
+FILE_ID = "16dRc24_GxBtSGKfnPyBe0gqsnShouSMD"  # File ID from the shared link on Google Drive
+FILE_URL = f"FILE_URL = "https://drive.google.com/uc?id=16dRc24_GxBtSGKfnPyBe0gqsnShouSMD"
+"
 
 def download_model():
     """
