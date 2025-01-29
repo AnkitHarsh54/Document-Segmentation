@@ -2,31 +2,36 @@ import os
 import gdown
 from ultralytics import YOLO
 import warnings
+
+# Suppress specific PyTorch warnings
 warnings.filterwarnings("ignore", category=UserWarning, message=".*torch.classes.*")
 
-
-# Define the path where you want the model to be saved relative to your project directory
-MODEL_DIR = 'models'  # Define the folder to store the model
-FILE_PATH = os.path.join(MODEL_DIR, 'yolov10x_best.pt')  # Modify to store inside 'models' folder
-FILE_ID = "16dRc24_GxBtSGKfnPyBe0gqsnShouSMD"  # File ID from the shared link on Google Drive
-FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"  # Corrected the URL format
+# Define model paths
+MODEL_DIR = "models"
+FILE_PATH = os.path.join(MODEL_DIR, "yolov10x_best.pt")
+FILE_ID = "16dRc24_GxBtSGKfnPyBe0gqsnShouSMD"
+FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
 def download_model():
     """
-    Download the YOLO model from Google Drive if it doesn't exist locally.
+    Downloads the YOLO model from Google Drive if not present locally.
 
     Returns:
-        str: Path to the downloaded model file, or None if download fails
+        str: Path to the downloaded model file, or None if download fails.
     """
-    # Check if the model already exists
     if not os.path.exists(FILE_PATH):
         print("Downloading model from Google Drive...")
-        # Ensure the directory exists where the model will be saved
-        os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
+        os.makedirs(MODEL_DIR, exist_ok=True)
+
         try:
-            # Download the file using gdown
-            gdown.download(FILE_URL, FILE_PATH, quiet=False)
-            print(f"Model downloaded successfully at: {FILE_PATH}")
+            gdown.download(FILE_URL, FILE_PATH, quiet=False, fuzzy=True)
+            
+            # Verify if the file is successfully downloaded
+            if os.path.exists(FILE_PATH) and os.path.getsize(FILE_PATH) > 0:
+                print(f"Model downloaded successfully at: {FILE_PATH}")
+            else:
+                print("Download failed or file is corrupt.")
+                return None
         except Exception as e:
             print(f"Error downloading the model: {e}")
             return None
@@ -37,15 +42,16 @@ def download_model():
 
 def load_model():
     """
-    Load the YOLO model from the downloaded file.
+    Loads the YOLO model from the downloaded file.
 
     Returns:
-        YOLO: Loaded YOLO model or None if there was an error
+        YOLO: Loaded YOLO model instance, or None if there was an error.
     """
     model_path = download_model()
+    
     if model_path:
         try:
-            model = YOLO(model_path, weights_only=True)
+            model = YOLO(model_path, task="detect")  # Explicitly specifying the task
             print("Model loaded successfully.")
             return model
         except Exception as e:
