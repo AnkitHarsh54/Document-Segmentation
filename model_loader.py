@@ -1,10 +1,6 @@
 import os
 import gdown
 from ultralytics import YOLO
-import warnings
-
-# Suppress specific PyTorch warnings
-warnings.filterwarnings("ignore", category=UserWarning, message=".*torch.classes.*")
 
 # Define model paths
 MODEL_DIR = "models"
