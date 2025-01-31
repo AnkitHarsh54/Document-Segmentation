@@ -42,7 +42,7 @@ def main():
     # Load YOLO model
     model = load_model()
     if not model:
-        st.error("⚠️ Model could not be loaded. Check the logs for details.sdbdsb")
+        st.error("⚠️ Model could not be loaded. Check the logs for details.")
         return
 
     # File uploader
