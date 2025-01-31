@@ -7,6 +7,4 @@ pillow
 pymupdf
 numpy
 torch
-torchvision
-torchaudio
 gdown
