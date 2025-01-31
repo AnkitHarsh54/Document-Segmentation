@@ -1,7 +1,7 @@
 streamlit
 torch
 pdf2image
-ultralytics==8.0.18
+ultralytics
 opencv-python-headless
 pillow
 pymupdf
