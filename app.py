@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 from ultralytics import YOLO
 import fitz  # PyMuPDF for PDF processing
-from model_loader import load_model  # Ensure this script correctly loads the model
+from model_loader import load_model  
 import tempfile
 import cv2
 
