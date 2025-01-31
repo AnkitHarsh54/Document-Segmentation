@@ -5,7 +5,7 @@ from ultralytics import YOLO
 # Define model paths
 MODEL_DIR = "models"
 FILE_PATH = os.path.join(MODEL_DIR, "yolov10x_best.pt")
-FILE_ID = "16dRc24_GxBtSGKfnPyBe0gqsnShouSMD"
+FILE_ID = "15YJAUuHYJQlMm0_rjlC-e_VJPmAvjeiE"
 FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
 def download_model():
